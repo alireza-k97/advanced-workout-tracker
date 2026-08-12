@@ -11,8 +11,24 @@ export default function WorkoutForm() {
     formState: { errors },
   } = useForm({ resolver: zodResolver(workoutSchemas) });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch("/api/workouts", {
+        method: "POST",
+        headers : {
+          "content-type" : "aplication/json",
+        },
+        body : JSON.stringify(data)
+      });
+
+      if(!response.ok){
+        throw new Error("Failed to create workout")
+      }
+
+      const result = await response.json();
+      console.log(result);
+
+    } catch (error) {console.log(error)}
   };
 
   return (
