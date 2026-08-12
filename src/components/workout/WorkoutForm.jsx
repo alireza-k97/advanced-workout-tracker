@@ -1,5 +1,7 @@
 "use client";
 
+import { workoutSchemas } from "@/schemas/workoutSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 export default function WorkoutForm() {
@@ -7,7 +9,7 @@ export default function WorkoutForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: zodResolver(workoutSchemas) });
 
   const onSubmit = (data) => {
     console.log(data);
@@ -20,13 +22,7 @@ export default function WorkoutForm() {
 
         <input
           type="text"
-          {...register("name", {
-            required: "Workout name is required",
-            minLength: {
-              value: 3,
-              message: "Workout name must be at least 3 characters",
-            },
-          })}
+          {...register("name")}
           className="w-full rounded-lg border px-4 py-2"
           placeholder="e.g. Push Day"
         />
@@ -40,7 +36,7 @@ export default function WorkoutForm() {
 
         <input
           type="date"
-          {...register("date", { required: "date is required" })}
+          {...register("date")}
           className="w-full rounded-lg border px-4 py-2"
         />
         {errors.date && (
@@ -53,14 +49,7 @@ export default function WorkoutForm() {
 
         <input
           type="number"
-          {...register("duration", {
-            required: "duration is required",
-            valueAsNumber: true,
-            min: {
-              value: 1,
-              message: "Duration must be at least 1 minute",
-            },
-          })}
+          {...register("duration", { valueAsNumber: true })}
           className="w-full rounded-lg border px-4 py-2"
           placeholder="Minutes"
         />
@@ -74,11 +63,7 @@ export default function WorkoutForm() {
 
         <input
           type="number"
-          {...register("calories", {
-            required: "calories is required",
-            valueAsNumber: true,
-            min: { value: 0, message: "Calories cannot be negative" },
-          })}
+          {...register("calories", { valueAsNumber: true })}
           className="w-full rounded-lg border px-4 py-2"
           placeholder="Calories burned"
         />
@@ -92,11 +77,7 @@ export default function WorkoutForm() {
 
         <input
           type="number"
-          {...register("exercises", {
-            required: "Number of exercise is required",
-            valueAsNumber: true,
-            min: { value: 1, message: "There must be at least 1 exercise" },
-          })}
+          {...register("exercises", { valueAsNumber: true })}
           className="w-full rounded-lg border px-4 py-2"
           placeholder="Number of exercises"
         />
