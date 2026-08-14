@@ -2,9 +2,11 @@
 
 import { workoutSchemas } from "@/schemas/workoutSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 export default function WorkoutForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -27,6 +29,7 @@ export default function WorkoutForm() {
 
       const result = await response.json();
       console.log(result);
+      router.push("/workouts");
 
     } catch (error) {console.log(error)}
   };

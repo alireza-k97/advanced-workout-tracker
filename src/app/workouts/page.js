@@ -2,7 +2,16 @@ import WorkoutCard from "@/components/workout/WorkoutCard";
 import { workouts } from "@/data/workouts";
 import Link from "next/link";
 
-export default function WorkoutsPage() {
+async function getWorkouts() {
+  const response = await fetch("http://localhost:3000/api/workouts");
+  if (!response.ok) {
+    throw new Error("Failed");
+  }
+  return response.json();
+}
+
+export default async function WorkoutsPage() {
+  const workouts = await getWorkouts();
   return (
     <>
       <div className="flex items-center justify-between">
@@ -24,8 +33,8 @@ export default function WorkoutsPage() {
       <div>
         {workouts.map((workout) => (
           <WorkoutCard
-            key={workout.id}
-            id={workout.id}
+            key={workout._id}
+            id={workout._id}
             name={workout.name}
             date={workout.date}
             duration={workout.duration}
