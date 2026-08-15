@@ -1,5 +1,5 @@
 import WorkoutCard from "@/components/workout/WorkoutCard";
-import { workouts } from "@/data/workouts";
+
 import Link from "next/link";
 
 async function getWorkouts() {
@@ -31,7 +31,7 @@ export default async function WorkoutsPage() {
         </Link>
       </div>
       <div>
-        {workouts.map((workout) => (
+        {workouts && workouts.map((workout) => (
           <WorkoutCard
             key={workout._id}
             id={workout._id}

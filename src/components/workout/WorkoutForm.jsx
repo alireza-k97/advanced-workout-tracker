@@ -3,35 +3,59 @@
 import { workoutSchemas } from "@/schemas/workoutSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-export default function WorkoutForm() {
+export default function WorkoutForm({ workoutId, workout }) {
   const router = useRouter();
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(workoutSchemas) });
 
+  useEffect(() => {
+    if (workout) {
+      reset({
+        name: workout.name,
+        date: workout.date?.split("T")[0],
+        duration: workout.duration,
+        calories: workout.calories,
+        exercises: workout.exercises,
+      });
+    }
+  }, [workout, reset]);
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("/api/workouts", {
-        method: "POST",
-        headers : {
-          "content-type" : "aplication/json",
+      const isEdit = Boolean(workoutId);
+
+      const url = isEdit ? `/api/workouts/${workoutId}` : "/api/workouts";
+
+      const method = isEdit ? "PATCH" : "POST";
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
         },
-        body : JSON.stringify(data)
+        body: JSON.stringify(data),
       });
 
-      if(!response.ok){
-        throw new Error("Failed to create workout")
+      if (!response.ok) {
+        throw new Error(
+          isEdit ? "Failed to update workout" : "Failed to create workout",
+        );
       }
 
       const result = await response.json();
-      console.log(result);
-      router.push("/workouts");
 
-    } catch (error) {console.log(error)}
+      console.log(result);
+
+      router.push("/workouts");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
