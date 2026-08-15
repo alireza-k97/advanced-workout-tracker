@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DeleteWorkoutButton from "./DeleteWorkoutButton";
 
 export default function WorkoutCard({
   id,
@@ -9,31 +10,35 @@ export default function WorkoutCard({
   exercises,
 }) {
   return (
-    <Link href={`/workouts/${id}`}>
-      <div className="rounded-xl border bg-white p-5 shadow-sm my-2">
-        <div className="flex items-center justify-between">
+    <div className="rounded-xl border bg-white p-5 shadow-sm my-2">
+      <div className="flex items-center justify-between">
+        <Link href={`/workouts/${id}`}>
           <h2 className="text-xl font-semibold">{name}</h2>
+        </Link>
 
+        <div className="flex items-center gap-3">
           <span className="text-sm text-gray-500">{date}</span>
-        </div>
 
-        <div className="mt-5 grid grid-cols-3 gap-4">
-          <div>
-            <p className="text-sm text-gray-500">Duration</p>
-            <p className="mt-1 font-semibold">{duration} min</p>
-          </div>
-
-          <div>
-            <p className="text-sm text-gray-500">Calories</p>
-            <p className="mt-1 font-semibold">{calories} kcal</p>
-          </div>
-
-          <div>
-            <p className="text-sm text-gray-500">Exercises</p>
-            <p className="mt-1 font-semibold">{exercises}</p>
-          </div>
+          <DeleteWorkoutButton id={id} />
         </div>
       </div>
-    </Link>
+
+      <div className="mt-5 grid grid-cols-3 gap-4">
+        <div>
+          <p className="text-sm text-gray-500">Duration</p>
+          <p className="mt-1 font-semibold">{duration} min</p>
+        </div>
+
+        <div>
+          <p className="text-sm text-gray-500">Calories</p>
+          <p className="mt-1 font-semibold">{calories} kcal</p>
+        </div>
+
+        <div>
+          <p className="text-sm text-gray-500">Exercises</p>
+          <p className="mt-1 font-semibold">{exercises}</p>
+        </div>
+      </div>
+    </div>
   );
 }
