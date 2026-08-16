@@ -133,7 +133,7 @@ export default function WorkoutForm({ workoutId, workout }) {
 
       <button
         type="submit"
-        className="rounded-lg bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-800"
+        className="rounded-lg cursor-pointer bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-800"
       >
         Create Workout
       </button>

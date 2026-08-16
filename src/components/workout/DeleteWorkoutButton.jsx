@@ -33,7 +33,7 @@ export default function DeleteWorkoutButton({ id }) {
     <button
       type="button"
       onClick={handleDelete}
-      className="rounded-lg border border-red-200 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50"
+      className="rounded-lg cursor-pointer border border-red-200 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50"
     >
       Delete
     </button>

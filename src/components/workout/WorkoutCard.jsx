@@ -1,5 +1,6 @@
 import Link from "next/link";
 import DeleteWorkoutButton from "./DeleteWorkoutButton";
+import EditWorkoutButton from "./EditWorkoutButton";
 
 export default function WorkoutCard({
   id,
@@ -20,6 +21,7 @@ export default function WorkoutCard({
           <span className="text-sm text-gray-500">{date}</span>
 
           <DeleteWorkoutButton id={id} />
+          <EditWorkoutButton  id={id}/>
         </div>
       </div>
 

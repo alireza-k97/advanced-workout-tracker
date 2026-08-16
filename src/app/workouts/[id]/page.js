@@ -20,10 +20,10 @@ export default async function WorkoutDetailsPage({ params }) {
   }
 
   return (
-    <div>
+    <div className="space-y-3">
       <Link
         href="/workouts"
-        className="text-sm text-gray-500 hover:text-gray-900"
+        className="text-sm cursor-pointer text-gray-500 hover:text-gray-900"
       >
         ← Back to Workouts
       </Link>

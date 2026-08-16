@@ -31,17 +31,18 @@ export default async function WorkoutsPage() {
         </Link>
       </div>
       <div>
-        {workouts && workouts.map((workout) => (
-          <WorkoutCard
-            key={workout._id}
-            id={workout._id}
-            name={workout.name}
-            date={workout.date}
-            duration={workout.duration}
-            calories={workout.calories}
-            exercises={workout.exercises}
-          />
-        ))}
+        {workouts &&
+          workouts.map((workout) => (
+            <WorkoutCard
+              key={workout._id}
+              id={workout._id}
+              name={workout.name}
+              date={workout.date}
+              duration={workout.duration}
+              calories={workout.calories}
+              exercises={workout.exercises}
+            />
+          ))}
       </div>
     </>
   );
