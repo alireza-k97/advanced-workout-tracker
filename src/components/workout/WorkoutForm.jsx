@@ -1,18 +1,20 @@
 "use client";
 
 import { workoutSchemas } from "@/schemas/workoutSchema";
+import { createWorkout, updateWorkout } from "@/services/worcoutService";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function WorkoutForm({ workoutId, workout }) {
   const router = useRouter();
+  const [submitError, setSubmitError] = useState("");
   const {
     register,
     reset,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(workoutSchemas) });
 
   useEffect(() => {
@@ -28,29 +30,12 @@ export default function WorkoutForm({ workoutId, workout }) {
   }, [workout, reset]);
   const onSubmit = async (data) => {
     try {
-      const isEdit = Boolean(workoutId);
-
-      const url = isEdit ? `/api/workouts/${workoutId}` : "/api/workouts";
-
-      const method = isEdit ? "PATCH" : "POST";
-
-      const response = await fetch(url, {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error(
-          isEdit ? "Failed to update workout" : "Failed to create workout",
-        );
+      setSubmitError("");
+      if (workoutId) {
+        await updateWorkout(workoutId, data);
+      } else {
+        await createWorkout(data);
       }
-
-      const result = await response.json();
-
-      console.log(result);
 
       router.push("/workouts");
     } catch (error) {
@@ -60,6 +45,11 @@ export default function WorkoutForm({ workoutId, workout }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mt-8 max-w-xl space-y-5">
+      {submitError && (
+        <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          {submitError}
+        </div>
+      )}
       <div>
         <label className="mb-2 block text-sm font-medium">Workout Name</label>
 
@@ -133,9 +123,16 @@ export default function WorkoutForm({ workoutId, workout }) {
 
       <button
         type="submit"
+        disabled={isSubmitting}
         className="rounded-lg cursor-pointer bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-800"
       >
-        Create Workout
+        {isSubmitting
+          ? workoutId
+            ? "Updating..."
+            : "Creating..."
+          : workoutId
+            ? "Update Workout"
+            : "Create Workout"}
       </button>
     </form>
   );
