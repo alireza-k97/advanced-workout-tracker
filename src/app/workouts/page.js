@@ -1,14 +1,7 @@
 import WorkoutCard from "@/components/workout/WorkoutCard";
+import { getWorkouts } from "@/services/worcoutService";
 
 import Link from "next/link";
-
-async function getWorkouts() {
-  const response = await fetch("http://localhost:3000/api/workouts");
-  if (!response.ok) {
-    throw new Error("Failed");
-  }
-  return response.json();
-}
 
 export default async function WorkoutsPage() {
   const workouts = await getWorkouts();
@@ -31,18 +24,17 @@ export default async function WorkoutsPage() {
         </Link>
       </div>
       <div>
-        {workouts &&
-          workouts.map((workout) => (
-            <WorkoutCard
-              key={workout._id}
-              id={workout._id}
-              name={workout.name}
-              date={workout.date}
-              duration={workout.duration}
-              calories={workout.calories}
-              exercises={workout.exercises}
-            />
-          ))}
+        {workouts.map((workout) => (
+          <WorkoutCard
+            key={workout._id}
+            id={workout._id}
+            name={workout.name}
+            date={workout.date}
+            duration={workout.duration}
+            calories={workout.calories}
+            exercises={workout.exercises}
+          />
+        ))}
       </div>
     </>
   );

@@ -1,14 +1,5 @@
 import WorkoutForm from "@/components/workout/WorkoutForm";
-
-async function getWorkout(id) {
-  const response = await fetch(`http://localhost:3000/api/workouts/${id}`);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch workout");
-  }
-
-  return response.json();
-}
+import { getWorkout } from "@/services/worcoutService";
 
 export default async function EditWorkoutPage({ params }) {
   const { id } = await params;

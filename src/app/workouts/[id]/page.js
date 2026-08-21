@@ -4,12 +4,13 @@ async function getWorkout(id) {
   const response = await fetch(`http://localhost:3000/api/workouts/${id}`);
 
   if (!response.ok) {
-    return null;
+    throw new Error("Failed to fetch workout");
   }
 
-  return response.json();
-}
+  const result = await response.json();
 
+  return result.data;
+}
 export default async function WorkoutDetailsPage({ params }) {
   const { id } = await params;
 

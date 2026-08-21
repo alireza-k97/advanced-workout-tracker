@@ -1,36 +1,29 @@
-import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Workout from "@/models/workout";
+import { errorResponse, successResponse } from "@/lib/apiResponse";
+import { isValidObjectId } from "@/lib/objectId";
 
-export async function DELETE(request , { params }) {
+export async function DELETE(request, { params }) {
   try {
     await connectDB();
 
     const { id } = await params;
-
+    if (!isValidObjectId(id)) {
+      return errorResponse("Invalid workout ID", 400);
+    }
     const workout = await Workout.findByIdAndDelete(id);
 
     if (!workout) {
-      return NextResponse.json(
-        {
-          message: "Workout not found",
-        },
-        { status: 404 },
-      );
+      return errorResponse("Workout not found", 404);
     }
 
-    return NextResponse.json({
+    return successResponse({
       message: "Workout deleted successfully",
     });
   } catch (error) {
     console.error("Delete workout error:", error);
 
-    return NextResponse.json(
-      {
-        message: "Failed to delete workout",
-      },
-      { status: 500 },
-    );
+    return errorResponse("Failed to delete workout", 500);
   }
 }
 
@@ -38,6 +31,9 @@ export async function PATCH(request, { params }) {
   try {
     await connectDB();
     const { id } = await params;
+    if (!isValidObjectId(id)) {
+      return errorResponse("Invalid workout ID", 400);
+    }
     const data = await request.json();
     const workout = await Workout.findByIdAndUpdate(id, data, {
       new: true,
@@ -45,21 +41,12 @@ export async function PATCH(request, { params }) {
     });
 
     if (!workout) {
-      return NextResponse.json(
-        { message: "workout not found" },
-        { status: 404 },
-      );
+      return errorResponse("Workout not found", 404);
     }
-    return NextResponse.json(
-      { message: "Workout updated successfully" },
-      workout,
-    );
+    return successResponse(workout);
   } catch (error) {
     console.error("update workout error:", error);
-    return NextResponse.json(
-      { message: "Failed to update workout" },
-      { status: 500 },
-    );
+    return errorResponse("Failed to update workout", 500);
   }
 }
 
@@ -67,17 +54,17 @@ export async function GET(request, { params }) {
   try {
     await connectDB();
     const { id } = await params;
+    if (!isValidObjectId(id)) {
+      return errorResponse("Invalid workout ID", 400);
+    }
     const workout = await Workout.findById(id);
 
     if (!workout) {
-      return NextResponse.json(
-        { message: "worcout not found" },
-        { status: 404 },
-      );
+      return errorResponse("workout not found", 404);
     }
-    return NextResponse.json(workout)
+    return successResponse(workout);
   } catch (error) {
-    console.error("GET workout error:" , error)
-    return NextResponse.json({message : "Failed to fetch workout"},{status:500})
+    console.error("GET workout error:", error);
+    return errorResponse("Failed to fetch workout", 500);
   }
 }
