@@ -1,4 +1,5 @@
 import WorkoutCard from "@/components/workout/WorkoutCard";
+import WorkoutList from "@/components/workout/WorkoutList";
 import { getWorkouts } from "@/services/worcoutService";
 
 import Link from "next/link";
@@ -24,17 +25,7 @@ export default async function WorkoutsPage() {
         </Link>
       </div>
       <div>
-        {workouts.map((workout) => (
-          <WorkoutCard
-            key={workout._id}
-            id={workout._id}
-            name={workout.name}
-            date={workout.date}
-            duration={workout.duration}
-            calories={workout.calories}
-            exercises={workout.exercises}
-          />
-        ))}
+        <WorkoutList workouts={workouts} />
       </div>
     </>
   );
