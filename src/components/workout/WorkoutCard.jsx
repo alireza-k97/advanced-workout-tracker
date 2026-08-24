@@ -11,8 +11,8 @@ export default function WorkoutCard({
   exercises,
 }) {
   return (
-    <div className="rounded-xl border bg-white p-5 shadow-sm my-2">
-      <div className="flex items-center justify-between">
+    <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <Link href={`/workouts/${id}`}>
           <h2 className="text-xl font-semibold">{name}</h2>
         </Link>

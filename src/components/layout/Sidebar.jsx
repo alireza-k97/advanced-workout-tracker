@@ -1,8 +1,12 @@
 import Link from "next/link";
 const menuItems = [
+  // {
+  //   title: "Dashboard",
+  //   href: "/",
+  // },
   {
     title: "Dashboard",
-    href: "/",
+    href: "/dashboard",
   },
   {
     title: "Workouts",
@@ -19,7 +23,7 @@ const menuItems = [
 ];
 export default function Sidebar() {
   return (
-    <aside className="w-64 min-h-screen border-r bg-white p-4 shadow-green-300 ">
+    <aside className="w-64 min-h-screen border-r bg-white dark:border-gray-800 dark:bg-gray-900 dark:text-white p-4 shadow-green-300 hidden md:block md:w-64 md:shrink-0 ">
       <h1 className="mb-8 text-2xl font-bold">Workout Tracker</h1>
 
       <nav>

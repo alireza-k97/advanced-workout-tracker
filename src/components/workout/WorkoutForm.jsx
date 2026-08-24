@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export default function WorkoutForm({ workoutId, workout }) {
   const router = useRouter();
@@ -33,18 +34,20 @@ export default function WorkoutForm({ workoutId, workout }) {
       setSubmitError("");
       if (workoutId) {
         await updateWorkout(workoutId, data);
+        toast.success("Workout updated successfully");
       } else {
         await createWorkout(data);
+        toast.success("Workout created successfully");
       }
-
       router.push("/workouts");
     } catch (error) {
+      toast.error("sorry try again!")
       console.error(error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="mt-8 max-w-xl space-y-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="mt-8 max-w-xl space-y-5 rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
       {submitError && (
         <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           {submitError}

@@ -8,7 +8,7 @@ export default async function EditWorkoutPage({ params }) {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold">Edit Workout</h1>
+      <h1 className="text-3xl font-bold dark:text-gray-500">Edit Workout</h1>
 
       <p className="mt-2 text-gray-500">Update your workout information.</p>
 

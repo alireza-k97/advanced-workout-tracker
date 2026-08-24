@@ -8,9 +8,9 @@ export default async function WorkoutsPage() {
   const workouts = await getWorkouts();
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Workouts</h1>
+          <h1 className="text-3xl font-bold dark:text-gray-500">Workouts</h1>
 
           <p className="mt-2 text-gray-500">
             Manage your workouts and track your training sessions.

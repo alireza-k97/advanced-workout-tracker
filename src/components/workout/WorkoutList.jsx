@@ -43,18 +43,22 @@ export default function WorkoutList({ workouts }) {
     });
   return (
     <div>
-      <div className="my-6">
-        <input
-          type="text"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          placeholder="search workouts ..."
-          className="w-full rounded-lg border px-4 py-2.5 outline-none focus:ring-2"
-        />
-      </div>
-      <div className="flex gap-4">
-        <div className="my-4">
-          <label htmlFor="Duration" className="mb-2 block text-sm font-medium">
+      <div className="my-6 grid gap-4 md:grid-cols-3">
+        <div>
+          <label htmlFor="search" className="mb-2 block text-sm font-medium dark:text-gray-400">
+            Search
+          </label>
+          <input
+            type="text"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="workouts name ..."
+            className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="Duration" className="mb-2 block text-sm font-medium dark:text-gray-400">
             Duration
           </label>
           <select
@@ -62,7 +66,7 @@ export default function WorkoutList({ workouts }) {
             id="Duration"
             value={durationFilter}
             onChange={(event) => setDurationFilter(event.target.value)}
-            className="rounded-lg border px-4 py-2.5 outline-none"
+            className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white"
           >
             <option value="all">All duration</option>
             <option value="short">Less than 30 min</option>
@@ -70,8 +74,8 @@ export default function WorkoutList({ workouts }) {
             <option value="long">More than 60 min</option>
           </select>
         </div>
-        <div className="my-4">
-          <label htmlFor="calories" className="mb-2 block text-sm font-medium">
+        <div>
+          <label htmlFor="calories" className="mb-2 block text-sm font-medium dark:text-gray-400">
             Calories
           </label>
           <select
@@ -79,7 +83,7 @@ export default function WorkoutList({ workouts }) {
             id="calories"
             value={calorieFilter}
             onChange={(event) => setCalorieFilter(event.target.value)}
-            className="rounded-lg border px-4 py-2.5 outline-none"
+            className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white"
           >
             <option value="all">All calories</option>
             <option value="low">Less than 300 kcal</option>
@@ -88,6 +92,7 @@ export default function WorkoutList({ workouts }) {
           </select>
         </div>
       </div>
+
       <div className="space-y-4">
         {filteredWorkouts.map((workout) => (
           <WorkoutCard
