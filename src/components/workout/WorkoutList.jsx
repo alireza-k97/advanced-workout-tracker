@@ -168,7 +168,7 @@ export default function WorkoutList({ workouts }) {
         ))}
         {filteredWorkouts.length === 0 && (
           <div className="rounded-xl border border-dashed p-8 text-center">
-            <p className="font-medium">No workouts found</p>
+            <p className="font-medium dark:text-gray-500">No workouts found</p>
 
             <p className="mt-1 text-sm text-gray-500">
               Try changing your search or filters.
