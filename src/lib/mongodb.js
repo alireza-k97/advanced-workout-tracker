@@ -6,7 +6,7 @@ if(!MONGODB_URL){
     throw new Error("Please define MONGODB_URI in .env.local");
 }
 
-export async function connectDB(){
+export default async function connectDB(){
     try {
         await mongoose.connect(MONGODB_URL);
         console.log("mongodb connected");
