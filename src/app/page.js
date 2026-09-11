@@ -1,8 +1,21 @@
 import Statscard from "@/components/dashboard/StatsCard";
-import { statsdata } from "@/data/dashboard";
-import DashboardPage from "./dashboard/page";
+import { cookies } from "next/headers";
+import LoginPage from "./login/page";
 
-export default function Home() {
+export default async function Home() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+  if (!token) {
+    return (
+      <div>
+        <h1 className="text-3xl font-bold">wellcome</h1>
+        <p className="mt-2 text-gray-500">
+          please login or craete acount
+        </p>
+        <LoginPage />
+      </div>
+    );
+  }
   return (
     <>
       <div>
@@ -13,7 +26,7 @@ export default function Home() {
         </p>
       </div>
       {/* <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4"> */}
-        {/* {statsdata.map((stat) => (
+      {/* {statsdata.map((stat) => (
           <Statscard
             key={stat.id}
             title={stat.title}
@@ -21,7 +34,7 @@ export default function Home() {
             description={stat.description}
           />
         ))} */}
-        <Statscard />
+      <Statscard />
       {/* </div> */}
     </>
   );

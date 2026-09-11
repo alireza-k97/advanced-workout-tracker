@@ -5,7 +5,7 @@ export default function Error({ error, reset }) {
     <div className="flex min-h-[400px] flex-col items-center justify-center text-center">
       <h2 className="text-2xl font-bold">Something went wrong</h2>
 
-      <p className="mt-2 text-gray-500">We couldn't load your workouts.</p>
+      <p className="mt-2 text-gray-500">We could not load your workouts.</p>
 
       <button
         type="button"

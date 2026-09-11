@@ -16,12 +16,14 @@ export default function LogoutToggle() {
 
       if (!result.success) {
         toast.error(result.message);
+
         return;
       }
 
       toast.success("Logout successful");
 
       router.push("/login");
+
       router.refresh();
     } catch (error) {
       toast.error("Something went wrong");

@@ -8,7 +8,7 @@ export default function Error({ reset }) {
       </h1>
 
       <p className="mt-2 text-gray-500 dark:text-gray-400">
-        We couldn't load this page.
+        We could not load this page.
       </p>
 
       <button

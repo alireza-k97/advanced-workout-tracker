@@ -14,9 +14,7 @@ import { cookies } from "next/headers";
 
 export default async function Statscard() {
   const cookieStore = await cookies();
-
   const token = cookieStore.get("token")?.value;
-
   const workouts = await getWorkouts(token);
   const totalWorkouts = workouts.length;
   const totalCalories = workouts.reduce(
@@ -32,7 +30,6 @@ export default async function Statscard() {
 
   return (
     <div>
-      
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <p className="text-sm text-gray-500 dark:text-gray-400">
