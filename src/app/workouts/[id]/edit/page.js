@@ -1,10 +1,15 @@
 import WorkoutForm from "@/components/workout/WorkoutForm";
-import { getWorkout } from "@/services/worcoutService";
+import { getWorkout } from "@/services/workoutService";
+import { cookies } from "next/headers";
 
 export default async function EditWorkoutPage({ params }) {
-  const { id } = await params;
-
-  const workout = await getWorkout(id);
+ const { id } = await params;
+ 
+   const cookieStore = await cookies();
+ 
+   const token = cookieStore.get("token")?.value;
+ 
+   const workout = await getWorkout(id, token);
 
   return (
     <div>

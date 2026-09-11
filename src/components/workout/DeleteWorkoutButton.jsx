@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteWorkout } from "@/services/worcoutService";
+import { deleteWorkout } from "@/services/workoutService";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";

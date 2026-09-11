@@ -1,20 +1,15 @@
+import { getWorkout } from "@/services/workoutService";
+import { cookies } from "next/headers";
 import Link from "next/link";
 
-async function getWorkout(id) {
-  const response = await fetch(`http://localhost:3000/api/workouts/${id}`);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch workout");
-  }
-
-  const result = await response.json();
-
-  return result.data;
-}
 export default async function WorkoutDetailsPage({ params }) {
   const { id } = await params;
 
-  const workout = await getWorkout(id);
+  const cookieStore = await cookies();
+
+  const token = cookieStore.get("token")?.value;
+
+  const workout = await getWorkout(id, token);
 
   if (!workout) {
     return <p>Workout not found.</p>;

@@ -1,8 +1,9 @@
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/mongodb";
+import { connectDB } from "@/lib/mongodb";
 import User from "@/models/user";
 import { loginSchema } from "@/schemas/authSchema";
+import { createToken } from "@/lib/auth";
 
 export async function POST(request) {
   try {
@@ -59,7 +60,7 @@ export async function POST(request) {
       );
     }
 
-    return NextResponse.json(
+    const response = NextResponse.json(
       {
         success: true,
         message: "Login successful",
@@ -73,6 +74,19 @@ export async function POST(request) {
         status: 200,
       },
     );
+    const token = await createToken({
+      userId: user._id.toString(),
+      email: user.email,
+    });
+
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 7,
+      path: "/",
+    });
+    return response;
   } catch (error) {
     console.error("Login error:", error);
 

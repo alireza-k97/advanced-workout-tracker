@@ -1,11 +1,14 @@
-import WorkoutCard from "@/components/workout/WorkoutCard";
 import WorkoutList from "@/components/workout/WorkoutList";
-import { getWorkouts } from "@/services/worcoutService";
-
+import { getWorkouts } from "@/services/workoutService";
+import { cookies } from "next/headers";
 import Link from "next/link";
 
 export default async function WorkoutsPage() {
-  const workouts = await getWorkouts();
+  const cookieStore = await cookies();
+
+  const token = cookieStore.get("token")?.value;
+
+  const workouts = await getWorkouts(token);
   return (
     <>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

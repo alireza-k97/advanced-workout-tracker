@@ -1,5 +1,6 @@
 import Statscard from "@/components/dashboard/StatsCard";
 import { statsdata } from "@/data/dashboard";
+import DashboardPage from "./dashboard/page";
 
 export default function Home() {
   return (
@@ -11,16 +12,17 @@ export default function Home() {
           Track your workouts and monitor your progress.
         </p>
       </div>
-      <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {statsdata.map((stat) => (
+      {/* <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4"> */}
+        {/* {statsdata.map((stat) => (
           <Statscard
             key={stat.id}
             title={stat.title}
             value={stat.value}
             description={stat.description}
           />
-        ))}
-      </div>
+        ))} */}
+        <Statscard />
+      {/* </div> */}
     </>
   );
 }

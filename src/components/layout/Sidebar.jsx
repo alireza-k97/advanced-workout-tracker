@@ -1,9 +1,9 @@
 import Link from "next/link";
 const menuItems = [
-  // {
-  //   title: "Dashboard",
-  //   href: "/",
-  // },
+  {
+    title: "Home",
+    href: "/",
+  },
   {
     title: "Dashboard",
     href: "/dashboard",
@@ -12,10 +12,10 @@ const menuItems = [
     title: "Workouts",
     href: "/workouts",
   },
-  {
-    title: "exercise",
-    href: "/exercise",
-  },
+  // {
+  //   title: "exercise",
+  //   href: "/exercise",
+  // },
   {
     title: "Progress",
     href: "/progress",
@@ -32,7 +32,7 @@ export default function Sidebar() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="block rounded-md px-4 py-2 hover:bg-gray-100"
+                className="block rounded-md px-4 py-2 hover:bg-gray-100 dark:hover:text-gray-900"
               >
                 {item.title}
               </Link>

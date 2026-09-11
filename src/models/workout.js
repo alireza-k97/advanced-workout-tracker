@@ -31,6 +31,11 @@ const workoutSchema = new mongoose.Schema(
       required: true,
       min: 1,
     },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   {
     timestamps: true,
