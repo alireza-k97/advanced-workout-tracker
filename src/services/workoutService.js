@@ -1,4 +1,12 @@
-const API_URL = "http://localhost:3000/api/workouts";
+const API_URL =
+  typeof window !== "undefined"
+    ? "/api/workouts"
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}/api/workouts`
+      : "http://localhost:3000/api/workouts";
+
+
+// const API_URL = "http://localhost:3000/api/workouts";
 
 // export async function getWorkouts() {
 //   const response = await fetch(API_URL);
