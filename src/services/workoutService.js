@@ -28,6 +28,7 @@ const API_URL =
 // }
 
 export async function getWorkouts(token) {
+  console.log("API_URL:", API_URL);
   const response = await fetch(API_URL, {
     headers: {
       Cookie: `token=${token}`,
