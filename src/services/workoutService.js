@@ -26,9 +26,9 @@ const API_URL =
 //   }
 //   return result.data;
 // }
-
 export async function getWorkouts(token) {
   console.log("API_URL:", API_URL);
+
   const response = await fetch(API_URL, {
     headers: {
       Cookie: `token=${token}`,
@@ -36,14 +36,37 @@ export async function getWorkouts(token) {
     cache: "no-store",
   });
 
-  const result = await response.json();
+  console.log("STATUS:", response.status);
+  console.log("CONTENT-TYPE:", response.headers.get("content-type"));
+
+  const text = await response.text();
+  console.log("RESPONSE:", text.slice(0, 500));
 
   if (!response.ok) {
-    throw new Error(result.message || "Failed to fetch workouts");
+    throw new Error("Failed to fetch workouts");
   }
+
+  const result = JSON.parse(text);
 
   return result.data;
 }
+// export async function getWorkouts(token) {
+//   console.log("API_URL:", API_URL);
+//   const response = await fetch(API_URL, {
+//     headers: {
+//       Cookie: `token=${token}`,
+//     },
+//     cache: "no-store",
+//   });
+
+//   const result = await response.json();
+
+//   if (!response.ok) {
+//     throw new Error(result.message || "Failed to fetch workouts");
+//   }
+
+//   return result.data;
+// }
 
 export async function getWorkout(id, token) {
   const response = await fetch(`${API_URL}/${id}`, {
